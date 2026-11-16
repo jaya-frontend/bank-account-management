@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bank Account Management</title>  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      margin: 0;
+      padding: 30px 15px;
+    }
+
+    .container {
+      max-width: 450px;
+      margin: auto;
+      padding: 25px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px #ccc;
+      text-align: center;
+    }
+
+    h1 {
+      color: #1e3a8a;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      padding: 11px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 6px;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    #message, #balance, #history {
+      margin-top: 20px;
+      white-space: pre-line;
+    }
+
+    #balance {
+      font-size: 22px;
+      font-weight: bold;
+      color: #15803d;
+    }
+  </style></head><body>
+  <div class="container">
+    <h1>Bank Account Management</h1>
+    <p>Manage your bank account easily.</p><div id="balance"></div>
+
+<input
+  type="number"
+  id="amount"
+  placeholder="Enter amount"
+  min="0.01"
+  step="0.01"
+>
+
+<button onclick="makeDeposit()">Deposit</button>
+<button onclick="makeWithdrawal()">Withdraw</button>
+
+<h3>Account Information</h3>
+
+<button onclick="checkAccountBalance()">Check Balance</button>
+<button onclick="showDeposits()">Show Deposits</button>
+<button onclick="showWithdrawals()">Show Withdrawals</button>
+
+<p id="message"></p>
+<div id="history"></div>
+
+  </div>  <script src="script.js"></script>  <script>
+    const amountInput = document.getElementById("amount");
+    const message = document.getElementById("message");
+    const balanceDisplay = document.getElementById("balance");
+    const history = document.getElementById("history");
+
+    function updateBalance() {
+      balanceDisplay.textContent = myAccount.checkBalance();
+    }
+
+    function makeDeposit() {
+      const amount = Number(amountInput.value);
+
+      message.textContent = myAccount.deposit(amount);
+      amountInput.value = "";
+      updateBalance();
+      history.textContent = "";
+    }
+
+    function makeWithdrawal() {
+      const amount = Number(amountInput.value);
+
+      message.textContent = myAccount.withdraw(amount);
+      amountInput.value = "";
+      updateBalance();
+      history.textContent = "";
+    }
+
+    function checkAccountBalance() {
+      message.textContent = myAccount.checkBalance();
+      updateBalance();
+    }
+
+    function showDeposits() {
+      history.textContent = myAccount.listAllDeposits();
+    }
+
+    function showWithdrawals() {
+      history.textContent = myAccount.listAllWithdrawals();
+    }
+
+    updateBalance();
+  </script></body>
+</html>
